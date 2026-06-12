@@ -6,7 +6,7 @@ type BackgroundMusicProps = {
   pauseForCelebration?: boolean;
 };
 
-const BG_VOLUME = 0.2;
+const BG_VOLUME = 0.12;
 
 export function BackgroundMusic({
   active,
