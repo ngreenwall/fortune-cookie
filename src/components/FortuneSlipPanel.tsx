@@ -10,7 +10,7 @@ export function FortuneSlipPanel({ slips, visible }: FortuneSlipPanelProps) {
 
   return (
     <div
-      className="mt-3 grid w-full grid-rows-2 gap-2 px-1"
+      className="mt-3 grid w-full grid-rows-2 gap-1 px-1"
       style={{ minHeight: "12.5rem" }}
       aria-live="polite"
       aria-atomic="true"
