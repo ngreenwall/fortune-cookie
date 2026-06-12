@@ -1,6 +1,7 @@
 import type { CookieCard, SlipEntry } from "../hooks/useMemoryGame";
 import { FortuneCookie } from "./FortuneCookie";
 import { FortuneSlipPanel } from "./FortuneSlipPanel";
+import { MuteButton } from "./MuteButton";
 
 type GameBoardProps = {
   cards: CookieCard[];
@@ -33,14 +34,7 @@ export function GameBoard({
         <h1 className="text-lg font-normal tracking-wide text-[var(--color-navy)]">
           Fortune Cookie Match
         </h1>
-        <button
-          type="button"
-          onClick={onToggleMute}
-          className="rounded-md px-2 py-1 text-sm text-[var(--color-navy)]/70 hover:bg-white/40"
-          aria-label={muted ? "Unmute sound" : "Mute sound"}
-        >
-          {muted ? "🔇" : "🔊"}
-        </button>
+        <MuteButton muted={muted} onToggle={onToggleMute} />
       </div>
 
       <div className="grid w-full grid-cols-4 gap-2 sm:gap-3">

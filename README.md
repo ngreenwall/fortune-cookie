@@ -54,7 +54,10 @@ None required. Optional: mute button in the game header toggles the Grum laugh t
 
 ## Audio license
 
-Laugh track: [Mixkit Free License](https://mixkit.co/license/#sfxFree) (Mixkit Sound Effect #2570).
+All audio under the [Mixkit Free License](https://mixkit.co/license/#musicFree).
+
+- Background music: *Lounging By Moonlight* by Ahjay Stelino (Mixkit #40)
+- Laugh track: Mixkit Sound Effect #2570
 
 ## Project structure
 

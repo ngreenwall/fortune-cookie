@@ -1,10 +1,17 @@
+import { MuteButton } from "./MuteButton";
+
 type IntroScreenProps = {
+  muted: boolean;
+  onToggleMute: () => void;
   onStart: () => void;
 };
 
-export function IntroScreen({ onStart }: IntroScreenProps) {
+export function IntroScreen({ muted, onToggleMute, onStart }: IntroScreenProps) {
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center px-6 py-10 text-center">
+    <div className="relative flex min-h-dvh flex-col items-center justify-center px-6 py-10 text-center">
+      <div className="absolute right-4 top-4">
+        <MuteButton muted={muted} onToggle={onToggleMute} />
+      </div>
       <h1 className="mb-2 text-3xl tracking-wide text-[var(--color-navy)] sm:text-4xl">
         Fortune Cookie Match
       </h1>

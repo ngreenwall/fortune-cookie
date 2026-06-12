@@ -1,10 +1,17 @@
+import { MuteButton } from "./MuteButton";
+
 type WinScreenProps = {
+  muted: boolean;
+  onToggleMute: () => void;
   onPlayAgain: () => void;
 };
 
-export function WinScreen({ onPlayAgain }: WinScreenProps) {
+export function WinScreen({ muted, onToggleMute, onPlayAgain }: WinScreenProps) {
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center px-6 py-10 text-center">
+    <div className="relative flex min-h-dvh flex-col items-center justify-center px-6 py-10 text-center">
+      <div className="absolute right-4 top-4">
+        <MuteButton muted={muted} onToggle={onToggleMute} />
+      </div>
       <h2 className="mb-3 text-2xl text-[var(--color-navy)] sm:text-3xl">
         All fortunes matched!
       </h2>
