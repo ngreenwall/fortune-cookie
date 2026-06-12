@@ -2,9 +2,11 @@
 
 A memory game in memory of Grum. Match fortune cookie pairs in a 4×4 grid. When you find Grum's signature fortune, confetti flies and a laugh track plays.
 
+**Live site:** https://fortune-cookie-dun.vercel.app
+
 ## What this is
 
-Tap cookies to crack them open. Fortune slips appear below the grid so you can read and compare them. Match all pairs to win.
+Tap cookies to crack them open — each tap plays a crunch sound. Fortune slips appear below the grid in a fixed two-row area so the grid stays put when the second slip appears. Match all pairs to win; matched cookies turn green with a checkmark. Classic big band swing loops in the background after you tap Start.
 
 ## How to run it locally
 
@@ -17,7 +19,7 @@ Open the URL shown in the terminal (usually `http://localhost:5173`).
 
 **What this does:** Installs dependencies and starts a local preview server so you can play the game in your browser while developing.
 
-## How to build for production
+## How to build and preview
 
 ```bash
 npm run build
@@ -28,47 +30,44 @@ npm run preview
 
 ## Deploy to Vercel
 
-### One-time setup (you do this once)
+The project is already linked and deployed. Pushes to `main` on GitHub trigger automatic redeploys.
 
-1. Create an empty repo on GitHub (e.g. `fortune-cookie`)
-2. In this project folder, initialize git and push:
+**Production URL:** https://fortune-cookie-dun.vercel.app
+
+**Repo:** https://github.com/ngreenwall/fortune-cookie
+
+To redeploy manually from the project folder:
 
 ```bash
-git init
-git add .
-git commit -m "Initial commit: Fortune Cookie Match"
-git remote add origin git@github.com:YOUR_USERNAME/fortune-cookie.git
-git push -u origin main
+npx vercel deploy --prod
 ```
 
-3. Go to [vercel.com](https://vercel.com) and sign in with GitHub
-4. Click **New Project** → import your `fortune-cookie` repo
-5. Confirm settings: Framework **Vite**, Build command `npm run build`, Output directory `dist`
-6. Click **Deploy** and copy the `.vercel.app` URL to share with family
-
-No environment variables or database needed. The free tier is enough.
+Build settings: Framework **Vite**, command `npm run build`, output `dist`. No environment variables needed.
 
 ## Key configuration
 
-None required. Optional: mute button in the game header toggles the Grum laugh track.
+None required. The mute button (top corner on every screen) toggles background music, cookie crack sounds, and the Grum laugh track.
 
 ## Audio license
 
 All audio under the [Mixkit Free License](https://mixkit.co/license/#musicFree).
 
-- Background music: *Lounging By Moonlight* by Ahjay Stelino (Mixkit #40)
-- Laugh track: Mixkit Sound Effect #2570
+- Background music: *Swing is the Answer* by Diego Nava (Mixkit #526)
+- Cookie crack: *Chewing something crunchy* (Mixkit SFX #2244)
+- Laugh track: *Small crowd laugh and applause* (Mixkit SFX #422)
 
 ## Project structure
 
 ```
 fortune-cookie/
 ├── src/
-│   ├── components/     # UI: cookies, slips, intro, win, celebration
+│   ├── components/       # UI: cookies, slips, intro, win, celebration, audio
 │   ├── data/fortunes.ts
 │   ├── hooks/useMemoryGame.ts
+│   ├── utils/            # playCookieCrack.ts
 │   └── App.tsx
-├── public/audio/       # Grum laugh track
-├── dist/               # Production build output (generated)
-└── docs/CONTEXT.md     # Session handoff notes
+├── public/audio/         # bigband-bg.mp3, cookie-crack.wav, grum-laugh.wav
+├── dist/                 # Production build output (generated)
+├── vercel.json           # SPA fallback
+└── docs/CONTEXT.md       # Session handoff notes
 ```

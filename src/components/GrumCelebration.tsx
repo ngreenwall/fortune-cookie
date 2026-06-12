@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Confetti } from "./Confetti";
 
 type GrumCelebrationProps = {
@@ -7,27 +7,74 @@ type GrumCelebrationProps = {
   onDismiss: () => void;
 };
 
-export function GrumCelebration({ show, muted, onDismiss }: GrumCelebrationProps) {
-  useEffect(() => {
-    if (!show || muted) return;
+const MIN_CELEBRATION_MS = 7000;
+const POST_LAUGH_BUFFER_MS = 1500;
+const LAUGH_VOLUME = 0.7;
 
-    const audio = new Audio("/audio/grum-laugh.mp3");
-    audio.volume = 0.7;
-    void audio.play().catch(() => {
-      // Autoplay policies or missing file — visual celebration still works
-    });
+export function GrumCelebration({ show, muted, onDismiss }: GrumCelebrationProps) {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (!audioRef.current) {
+      const audio = new Audio("/audio/grum-laugh.wav");
+      audio.volume = LAUGH_VOLUME;
+      audioRef.current = audio;
+    }
 
     return () => {
-      audio.pause();
+      audioRef.current?.pause();
     };
-  }, [show, muted]);
+  }, []);
 
   useEffect(() => {
     if (!show) return;
 
-    const timer = window.setTimeout(onDismiss, 3500);
-    return () => window.clearTimeout(timer);
-  }, [show, onDismiss]);
+    const audio = audioRef.current;
+    let dismissTimer: number | undefined;
+
+    const scheduleDismiss = (delayMs: number) => {
+      dismissTimer = window.setTimeout(onDismiss, delayMs);
+    };
+
+    const resolveDismissDelay = () => {
+      if (!audio || !Number.isFinite(audio.duration) || audio.duration <= 0) {
+        return MIN_CELEBRATION_MS;
+      }
+
+      return Math.max(
+        MIN_CELEBRATION_MS,
+        audio.duration * 1000 + POST_LAUGH_BUFFER_MS,
+      );
+    };
+
+    const scheduleFromAudio = () => {
+      dismissTimer = window.setTimeout(onDismiss, resolveDismissDelay());
+    };
+
+    if (!muted && audio) {
+      audio.currentTime = 0;
+
+      void audio
+        .play()
+        .then(() => {
+          if (audio.duration > 0) {
+            scheduleFromAudio();
+          } else {
+            audio.addEventListener("loadedmetadata", scheduleFromAudio, { once: true });
+          }
+        })
+        .catch(() => scheduleDismiss(MIN_CELEBRATION_MS));
+    } else {
+      scheduleDismiss(MIN_CELEBRATION_MS);
+    }
+
+    return () => {
+      if (dismissTimer !== undefined) {
+        window.clearTimeout(dismissTimer);
+      }
+      audio?.pause();
+    };
+  }, [show, muted, onDismiss]);
 
   if (!show) return null;
 

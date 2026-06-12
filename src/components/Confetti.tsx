@@ -44,7 +44,7 @@ export function Confetti({ active }: ConfettiProps) {
     }));
 
     let frame = 0;
-    const maxFrames = 120;
+    const maxFrames = 360;
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);

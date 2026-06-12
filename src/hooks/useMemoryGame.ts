@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { FORTUNE_DEFINITIONS, type FortuneDefinition } from "../data/fortunes";
+import { playCookieCrack } from "../utils/playCookieCrack";
 import { shuffle } from "../utils/shuffle";
 
 export type CookiePhase =
@@ -52,7 +53,7 @@ function buildDeck(definitions: FortuneDefinition[]): CookieCard[] {
   }));
 }
 
-export function useMemoryGame() {
+export function useMemoryGame(muted = false) {
   const [cards, setCards] = useState<CookieCard[]>(() => buildDeck(FORTUNE_DEFINITIONS));
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [activeSlips, setActiveSlips] = useState<SlipEntry[]>([]);
@@ -132,6 +133,7 @@ export function useMemoryGame() {
       if (selectedIds.includes(cardId)) return;
 
       if (selectedIds.length === 0) {
+        playCookieCrack(muted);
         setCards((prev) =>
           prev.map((c) => (c.id === cardId ? { ...c, phase: "open" } : c)),
         );
@@ -145,6 +147,7 @@ export function useMemoryGame() {
         const firstCard = cards.find((c) => c.id === firstId);
         if (!firstCard) return;
 
+        playCookieCrack(muted);
         setCards((prev) =>
           prev.map((c) => (c.id === cardId ? { ...c, phase: "open" } : c)),
         );
@@ -177,7 +180,7 @@ export function useMemoryGame() {
         }
       }
     },
-    [cards, isLocked, isWon, runMismatchSequence, selectedIds],
+    [cards, isLocked, isWon, muted, runMismatchSequence, selectedIds],
   );
 
   const clearGrumCelebration = useCallback(() => {

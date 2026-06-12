@@ -16,7 +16,7 @@ export function BackgroundMusic({
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    const audio = new Audio("/audio/jazz-bg.mp3");
+    const audio = new Audio("/audio/bigband-bg.mp3");
     audio.loop = true;
     audio.volume = BG_VOLUME;
     audioRef.current = audio;

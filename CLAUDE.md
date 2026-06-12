@@ -4,6 +4,8 @@ A memory game in memory of Grum (G-R-U-M). After Chinese food, he would read the
 
 **Stack:** React + Vite + TypeScript + Tailwind CSS. Static SPA, deploys to Vercel.
 
-**Gameplay:** 4×4 grid of fortune cookies. Tap two cookies to crack them open; fortune slips appear below the grid. Match all 8 pairs to win. Grum's fortune triggers confetti, a laugh track, and a tribute overlay.
+**Gameplay:** 4×4 grid of fortune cookies. Tap two cookies to crack them open; fortune slips appear below the grid. Match all 8 pairs to win. Grum's fortune triggers confetti, a laugh track, and a tribute overlay. Classic big band swing loops after Start (mute toggles all audio). Matched cookies turn green with a checkmark.
+
+**Production:** https://fortune-cookie-dun.vercel.app | **Repo:** github.com/ngreenwall/fortune-cookie
 
 Check docs/CONTEXT.md for recent session notes before starting work.

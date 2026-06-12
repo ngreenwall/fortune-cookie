@@ -12,7 +12,7 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>("intro");
   const [muted, setMuted] = useState(false);
   const [musicStarted, setMusicStarted] = useState(false);
-  const game = useMemoryGame();
+  const game = useMemoryGame(muted);
 
   const toggleMute = () => setMuted((m) => !m);
 
@@ -53,7 +53,7 @@ export default function App() {
       )}
 
       {screen === "playing" && !(game.isWon && !game.grumMatched) && (
-        <div className="flex min-h-dvh items-start justify-center py-4 sm:items-center sm:py-8">
+        <div className="flex min-h-dvh items-start justify-center py-4 sm:py-8">
           <GameBoard
             cards={game.cards}
             activeSlips={game.activeSlips}
