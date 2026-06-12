@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sky-bg: #e8f4fc;
+  --color-cookie: #e8c872;
+  --color-cookie-dark: #c9a84c;
+  --color-slip: #fffef8;
+  --color-navy: #2c3e50;
+  --color-gold: #c9a227;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background-color: var(--color-sky-bg);
+  color: var(--color-navy);
+  font-family: "Georgia", "Times New Roman", serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+@keyframes slip-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slip-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes x-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes match-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  50% {
+    filter: drop-shadow(0 0 6px rgba(201, 162, 39, 0.6));
+  }
+}
+
+.animate-slip-in {
+  animation: slip-in 0.35s ease-out forwards;
+}
+
+.animate-slip-out {
+  animation: slip-out 0.3s ease-in forwards;
+}
+
+.animate-x-pop {
+  animation: x-pop 0.25s ease-out forwards;
+}
+
+.animate-match-glow {
+  animation: match-glow 0.6s ease-in-out;
+}
